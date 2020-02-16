@@ -1,0 +1,16 @@
+<ActionBar>
+    <Label text="Modern Warfare Stats"></Label>
+</ActionBar>
+
+<StackLayout *ngIf="!getAccount()">
+    <Label text="Enter Activision Account (ex: Username#12345)" textWrap="true" margin="8"></Label>
+    <TextField [(ngModel)]="model.accountName" hint="Enter Account Name" margin="8"></TextField>
+    <Button text="Save" (onTap)="save()" margin="8"></Button>
+</StackLayout>
+
+<StackLayout *ngIf="getAccount()"> 
+    <Label text="{{getAccount()}}" textWrap="true" margin="8"></Label>
+    <Label *ngIf="stats.status == 'success'" text="Lifetime KDA: {{stats.data.lifetime.all.properties.kdRatio.toFixed(2)}}" class="h1"  textWrap="true" margin="8"></Label>
+    <Label *ngIf="stats.status !== 'success' && getAccount()" text="Unable to find stats." class="h1" margin="8"></Label>
+    <Button text="Change Username" (onTap)="reset()" margin="8"></Button>
+</StackLayout>
